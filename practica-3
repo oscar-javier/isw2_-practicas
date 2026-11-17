@@ -1,1 +1,48 @@
+# Código Inicial (Con Deuda Técnica y Olores de Código)
 
+```csharp
+namespace codigoSucio
+{
+    public class procesadorPedido
+    {
+        public object procesar(object pedidoData)
+        {
+            Dictionary<string, object> data = (Dictionary<string, object>)pedidoData;
+            double total = (double)data["total"];
+            int id = (int)data["id"];
+            return "Pedido " + id + " procesado por un total de " + total;
+        }
+
+        public decimal aplicarDescuento(string tipoUsuario, decimal total)
+        {
+            if (tipoUsuario == "Normal")
+            {
+                return total;
+            }
+            else if (tipoUsuario == "VIP")
+            {
+                return total * 0.85m;
+            }
+            return total;
+        }
+
+        public decimal calcularSalarioNeto(decimal salarioBruto)
+        {
+            decimal deduccion1 = salarioBruto * 0.0935m;
+            decimal deduccion2 = salarioBruto * 0.035m;
+            return salarioBruto - deduccion1 - deduccion2;
+        }
+
+        public string obtenerDiaSemana(int numeroDia)
+        {
+            if (numeroDia == 1) return "Lunes";
+            else if (numeroDia == 2) return "Martes";
+            else if (numeroDia == 3) return "Miércoles";
+            else if (numeroDia == 4) return "Jueves";
+            else if (numeroDia == 5) return "Viernes";
+            else if (numeroDia == 6) return "Sábado";
+            else if (numeroDia == 7) return "Domingo";
+            else return "Día Inválido";
+        }
+    }
+}

@@ -46,3 +46,58 @@ namespace codigoSucio
         }
     }
 }
+
+
+---
+
+### 2. Archivo `despues.md` (Código Limpio / Refactorizado)
+
+Crea un archivo llamado `despues.md` dentro de `practica-3/` y pega lo siguiente:
+
+```markdown
+# Código Refactorizado (Aplicando Clean Code y Principios de Diseño)
+
+```csharp
+namespace codigoLimpio
+{
+    public record pedido(int id, decimal total, string cliente);
+
+    public interface iEstrategiaDescuento
+    {
+        decimal aplicar(decimal total);
+    }
+
+    public class descuentoNormal : iEstrategiaDescuento
+    {
+        public decimal aplicar(decimal total) => total;
+    }
+
+    public class descuentoVip : iEstrategiaDescuento
+    {
+        public decimal aplicar(decimal total) => total * 0.85m;
+    }
+
+    public class procesadorPedido
+    {
+        private const decimal porcentajeSeguroSocial = 0.0935m;
+        private const decimal porcentajeMaternidadyRiesgo = 0.035m;
+
+        private static readonly Dictionary<int, string> diasSemana = new()
+        {
+            { 1, "Lunes" }, { 2, "Martes" }, { 3, "Miércoles" },
+            { 4, "Jueves" }, { 5, "Viernes" }, { 6, "Sábado" }, { 7, "Domingo" }
+        };
+
+        public string procesar(pedido pedido)
+            => $"Pedido {pedido.id} procesado exitosamente por un total de {pedido.total:C}";
+
+        public decimal calcularSalarioNeto(decimal salarioBruto)
+        {
+            decimal totalDeducciones = salarioBruto * (porcentajeSeguroSocial + porcentajeMaternidadyRiesgo);
+            return salarioBruto - totalDeducciones;
+        }
+
+        public string obtenerDiaSemana(int numeroDia)
+            => diasSemana.TryGetValue(numeroDia, out var dia) ? dia : "Día Inválido";
+    }
+}

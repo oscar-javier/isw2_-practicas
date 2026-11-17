@@ -101,3 +101,31 @@ namespace codigoLimpio
             => diasSemana.TryGetValue(numeroDia, out var dia) ? dia : "Día Inválido";
     }
 }
+
+
+---
+
+### 3. Archivo `notas.md` (Principios Citados y Justificación)
+
+Crea un archivo llamado `notas.md` dentro de `practica-3/` y pega lo siguiente:
+
+```markdown
+# Notas Técnicas y Principios de Clean Code Aplicados
+
+Este documento detalla las mejoras implementadas al comparar el código inicial (`antes.md`) frente a la versión refactorizada (`despues.md`), fundamentadas en la literatura de Clean Code y principios de diseño de software.
+
+## 1. Tipado Fuerte (Strong Typing)
+* **Problema anterior:** Se utilizaba el tipo genérico `object` y un diccionario dinámico (`Dictionary<string, object>`), lo que exigía conversiones de tipo manuales (*casting*) propensas a errores graves como `InvalidCastException` en tiempo de ejecución.
+* **Mejora aplicada:** Se introdujo un `record pedido(int id, decimal total, string cliente)`. Esto traslada la validación de tipos directamente al tiempo de compilación, garantizando inmutabilidad y seguridad de datos.
+
+## 2. Polimorfismo vs Estructuras Condicionales (Strategy Pattern)
+* **Problema anterior:** El cálculo de descuentos utilizaba condicionales encadenados evaluando cadenas de texto (`if-else`), violando el **Principio de Abierto/Cerrado (OCP)** de SOLID, ya que agregar un nuevo tipo de descuento exigía modificar la clase existente.
+* **Mejora aplicada:** Se implementó la interfaz `iEstrategiaDescuento` junto con clases concretas (`descuentoNormal`, `descuentoVip`). Ahora, extender el sistema con nuevas reglas de negocio se realiza creando nuevas clases sin alterar el código fuente ya verificado.
+
+## 3. Eliminación de Números Mágicos (Magic Numbers)
+* **Problema anterior:** En el cálculo de salario neto se empleaban literales numéricos directos (`0.0935m` y `0.035m`) sin contexto semántico.
+* **Mejora aplicada:** Se extrajeron dichos valores a constantes privadas descriptivas (`porcentajeSeguroSocial`, `porcentajeMaternidadyRiesgo`), logrando un código auto-documentado y centralizado para futuros cambios legales o de negocio.
+
+## 4. Método de Tabla (Table-Driven Method)
+* **Problema anterior:** La función `obtenerDiaSemana` dependía de una estructura rígida de múltiples `if-else if` anidados para asociar un número con su respectivo día.
+* **Mejora aplicada:** Se sustituyó por un `Dictionary<int, string>` estático, logrando búsquedas optimizadas en tiempo constante $O(1)$ mediante el método `TryGetValue`, desacoplando completamente los datos estáticos de la lógica de control.

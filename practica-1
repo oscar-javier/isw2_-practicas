@@ -1,1 +1,12 @@
-console.log("Hola Mundo");
+using System;
+
+namespace codigoLimpio
+{
+    public static class validadorTexto
+    {
+        public static bool esValida(this string texto)
+        {
+            return !string.IsNullOrWhiteSpace(texto);
+        }
+    }
+}

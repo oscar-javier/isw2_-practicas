@@ -1,0 +1,3 @@
+# Práctica 5 - Refactorización y Test Driven
+
+Carpeta que documenta el proceso de transición de código con deuda técnica (`enfermo.js`) hacia código mantenible y testeable (`sano.js`).
